@@ -1,6 +1,6 @@
 Name:           rpmfusion-packager
 Version:        0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 Group:          Applications/Productivity
@@ -46,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.2-2
+- rebuild for new F11 features
+
 * Sat Feb 28 2009 Stewart Adam <s.adam at diffingo.com> - 0.2-1
 - Update to 0.2 (splits rpmfusion-cvs into rpmfusion-{free,nonfree}-cvs)
 
