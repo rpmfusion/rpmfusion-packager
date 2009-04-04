@@ -1,6 +1,6 @@
 Name:           rpmfusion-packager
-Version:        0.2
-Release:        2%{?dist}
+Version:        0.3
+Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 Group:          Applications/Productivity
@@ -9,8 +9,12 @@ URL:            http://rpmfusion.org/Package/rpmfusion-packager
 Source0:        http://downloads.diffingo.com/rpmfusion/rpmfusion-packager/rpmfusion-packager-%{version}.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:       rpm-build rpmdevtools rpmlint mock
-Requires:       curl wget cvs plague-client
+# Packager tools
+Requires:       rpm-build rpmdevtools rpmlint mock plague-client
+
+# Tools required by the scripts included
+Requires:       python-pycurl cvs
+
 # See FIXME in rpmfusion-cvs
 #Requires:       pyOpenSSL
 
@@ -43,9 +47,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog COPYING README TODO
 %{_bindir}/rpmfusion-packager-setup
 %{_bindir}/rpmfusion-*-cvs
+%{_bindir}/plague-client-rf
 
 
 %changelog
+* Sat Apr 4 2009 Stewart Adam <s.adam at diffingo.com> - 0.3-1
+- Update to 0.3 (use pycurl, display cvs output in realtime, add support for 
+  anonymous CVS, add plague-client-rf wrapper)
+
 * Sun Mar 29 2009 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 0.2-2
 - rebuild for new F11 features
 
