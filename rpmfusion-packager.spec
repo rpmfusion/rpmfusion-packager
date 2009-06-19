@@ -1,5 +1,5 @@
 Name:           rpmfusion-packager
-Version:        0.3
+Version:        0.4
 Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
@@ -51,6 +51,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 19 2009 Stewart Adam <s.adam at diffingo.com> - 0.4-1
+- Update to 0.4 (configures ~/.plague-client-rpmfusion.cfg)
+
 * Sat Apr 4 2009 Stewart Adam <s.adam at diffingo.com> - 0.3-1
 - Update to 0.3 (use pycurl, display cvs output in realtime, add support for 
   anonymous CVS, add plague-client-rf wrapper)
