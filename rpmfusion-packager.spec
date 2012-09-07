@@ -1,5 +1,5 @@
 Name:           rpmfusion-packager
-Version:        0.4
+Version:        0.5
 Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
@@ -11,6 +11,7 @@ BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 # Packager tools
 Requires:       rpm-build rpmdevtools rpmlint mock plague-client
+Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
 Requires:       python-pycurl cvs
@@ -51,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Sep 07 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.5-1
+- Add Requires mock-rpmfusion-free
+
 * Fri Jun 19 2009 Stewart Adam <s.adam at diffingo.com> - 0.4-1
 - Update to 0.4 (configures ~/.plague-client-rpmfusion.cfg)
 
