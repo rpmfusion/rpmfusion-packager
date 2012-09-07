@@ -1,6 +1,6 @@
 Name:           rpmfusion-packager
-Version:        0.5
-Release:        1%{?dist}
+Version:        0.4
+Release:        2%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 Group:          Applications/Productivity
@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Sep 07 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.5-1
+* Fri Sep 07 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.4-2
 - Add Requires mock-rpmfusion-free
 
 * Fri Jun 19 2009 Stewart Adam <s.adam at diffingo.com> - 0.4-1
