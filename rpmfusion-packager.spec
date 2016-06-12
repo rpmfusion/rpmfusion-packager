@@ -1,16 +1,20 @@
 Name:           rpmfusion-packager
-Version:        0.4
-Release:        2%{?dist}
+Version:        0.5
+Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 Group:          Applications/Productivity
 License:        GPLv2+
-URL:            http://rpmfusion.org/Package/rpmfusion-packager
-Source0:        http://downloads.diffingo.com/rpmfusion/rpmfusion-packager/rpmfusion-packager-%{version}.tar.bz2
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+URL:            https://github.com/rpmfusion-infra/rpmfusion-packager
+#Source0: https://github.com/rpmfusion-infra/rpmfusion-packager/archive/%%{version}/rpmfusion-packager-%%{version}.tar.bz2
+# Since we don't have 0.5 tag on github ! 
+Source0:        https://github.com/rpmfusion-infra/rpmfusion-packager/archive/master/rpmfusion-packager-%{version}.tar.gz
 
+BuildRequires:  autoconf automake
 # Packager tools
-Requires:       rpm-build rpmdevtools rpmlint mock plague-client
+Requires:       rpm-build rpmdevtools rpmlint mock
+Requires:       fedpkg
+Requires:       koji
 Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
@@ -27,7 +31,8 @@ packager in setting up their environment and access the RPM Fusion
 infrastructure.
 
 %prep
-%setup -q
+%setup -q -n %{name}-master
+autoreconf -i
 
 
 %build
@@ -35,23 +40,28 @@ infrastructure.
 make %{?_smp_mflags}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+make install DESTDIR=%{buildroot} INSTALL="install -p"
 
+mkdir -p %{buildroot}%{_sysconfdir}/koji
+install -pm 0644 src/koji-rpmfusion-config \
+  %{buildroot}%{_sysconfdir}/koji/rpmfusion-config
 
-%clean
-rm -rf $RPM_BUILD_ROOT
 
 
 %files
-%defattr(-,root,root,-)
 %doc AUTHORS ChangeLog COPYING README TODO
+%config(noreplace) %{_sysconfdir}/koji/rpmfusion-config
 %{_bindir}/rpmfusion-packager-setup
 %{_bindir}/rpmfusion-*-cvs
-%{_bindir}/plague-client-rf
 
 
 %changelog
+* Sat Jun 11 2016 Nicolas Chauvet <kwizart@gmail.com> - 0.5-1
+- Remove plague-client
+- Introduce fedpkg and koji dependencies
+- Add koji configuration file
+- Add some hacks to build.
+
 * Fri Sep 07 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.4-2
 - Add Requires mock-rpmfusion-free
 
