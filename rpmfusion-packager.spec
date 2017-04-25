@@ -1,9 +1,8 @@
 Name:           rpmfusion-packager
-Version:        0.5.3
+Version:        0.6.0
 Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
-Group:          Applications/Productivity
 License:        GPLv2+
 URL:            https://github.com/rpmfusion-infra/rpmfusion-packager
 Source0:        https://github.com/rpmfusion-infra/rpmfusion-packager/archive/v%{version}/rpmfusion-packager-%{version}.tar.gz
@@ -13,10 +12,11 @@ BuildRequires:  autoconf automake
 Requires:       rpm-build rpmdevtools rpmlint mock
 Requires:       rfpkg
 Requires:       koji
+Requires:       libabigail
 Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
-Requires:       python-pycurl cvs
+Requires:       python-pycurl
 
 # See FIXME in rpmfusion-cvs
 #Requires:       pyOpenSSL
@@ -35,22 +35,30 @@ autoreconf -i
 
 %build
 %configure
-make %{?_smp_mflags}
+%make_build
 
 %install
-make install DESTDIR=%{buildroot} INSTALL="install -p"
+%make_install INSTALL="install -p"
 
 
 %files
 %doc AUTHORS ChangeLog README TODO
 %license COPYING
 %config(noreplace) %{_sysconfdir}/koji.conf.d/rpmfusion.conf
+%{_bindir}/rfabipkgdiff
 %{_bindir}/rpmfusion-packager-setup
-%{_bindir}/rpmfusion-*-cvs
 %{_bindir}/koji-rpmfusion
 
 
 %changelog
+* Tue Apr 25 2017 Sérgio Basto <sergio@serjux.com> - 0.6.0-1
+- New release version 0.6.0 .
+- Fix one issue with recent koji, by explictely using authtype
+  ssl in the rpmfusion.conf config file.
+- Remove old CVS scripts (for old rpmfusion infrastruture), cvs requirement
+  from rpmfusion-packager package and clean-up cvs scripts from makefile.
+- Add rfabipkgdiff script and some requirements to run it.
+
 * Wed Nov 02 2016 Sérgio Basto <sergio@serjux.com> - 0.5.3-1
 - Move fas.rpmfusion.org to admin.rpmfusion.org/accounts rfbz#4314
 
