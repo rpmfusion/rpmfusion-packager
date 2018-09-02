@@ -1,6 +1,6 @@
 Name:           rpmfusion-packager
 Version:        0.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -21,7 +21,11 @@ Requires:       libabigail
 Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
+%if 0%{?fedora}
 Requires:       python2-pycurl
+%else
+Requires:       python-pycurl
+%endif
 
 # See FIXME in rpmfusion-cvs
 #Requires:       pyOpenSSL
@@ -37,7 +41,11 @@ infrastructure.
 %package     -n rpmfusion-cert
 Summary:        Fedora certificate tool and python library
 Group:          Applications/Databases
+%if 0%{?fedora}
 Requires:       python2-pyOpenSSL
+%else
+Requires:       pyOpenSSL
+%endif
 Requires:       python2-requests
 Requires:       python2-fedora
 Requires:       python2-six
@@ -72,6 +80,9 @@ autoreconf -i
 %{python2_sitelib}/rpmfusion_cert
 
 %changelog
+* Sun Sep 02 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.6.2-3
+- Fix python deps for el7
+
 * Sun Sep 02 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.6.2-2
 - Use versioned python deps
 
