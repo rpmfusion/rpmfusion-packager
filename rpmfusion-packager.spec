@@ -1,23 +1,27 @@
 Name:           rpmfusion-packager
 Version:        0.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
 URL:            https://github.com/rpmfusion-infra/rpmfusion-packager
-Source0:        https://github.com/rpmfusion-infra/rpmfusion-packager/archive/v%{version}/rpmfusion-packager-%{version}.tar.gz
+Source0:        %url/archive/v%{version}/rpmfusion-packager-%{version}.tar.gz
 
-BuildRequires:  autoconf automake
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  python2-devel
 # Packager tools
-Requires:       rpm-build rpmdevtools rpmlint mock
+Requires:       rpm-build
+Requires:       rpmdevtools
+Requires:       rpmlint
+Requires:       mock
 Requires:       rfpkg
 Requires:       koji
 Requires:       libabigail
 Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
-Requires:       python-pycurl
+Requires:       python2-pycurl
 
 # See FIXME in rpmfusion-cvs
 #Requires:       pyOpenSSL
@@ -33,10 +37,10 @@ infrastructure.
 %package     -n rpmfusion-cert
 Summary:        Fedora certificate tool and python library
 Group:          Applications/Databases
-Requires:       pyOpenSSL
-Requires:       python-requests
-Requires:       python-fedora
-Requires:       python-six
+Requires:       python2-pyOpenSSL
+Requires:       python2-requests
+Requires:       python2-fedora
+Requires:       python2-six
 
 %description -n rpmfusion-cert
 Provides rpmfusion-cert and the rpmfusion_cert python library
@@ -68,6 +72,9 @@ autoreconf -i
 %{python2_sitelib}/rpmfusion_cert
 
 %changelog
+* Sun Sep 02 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.6.2-2
+- Use versioned python deps
+
 * Sat Feb 17 2018 Sérgio Basto <sergio@serjux.com> - 0.6.2-1
 - Fix a bug with rpmfusion-cert
 
