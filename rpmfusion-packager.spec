@@ -1,15 +1,29 @@
+# rpmfusion-packager switched to python3 on Fedora 30 and RHEL > 7:
+%if 0%{?fedora} > 29 || 0%{?rhel} > 7
+%bcond_without python3
+%else
+%bcond_with python3
+%endif
+
 Name:           rpmfusion-packager
-Version:        0.6.2
-Release:        3%{?dist}
+Version:        0.6.3
+Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
 URL:            https://github.com/rpmfusion-infra/rpmfusion-packager
-Source0:        %url/archive/v%{version}/rpmfusion-packager-%{version}.tar.gz
+Source0:        %url/releases/download/v%{version}/rpmfusion-packager-%{version}.tar.bz2
+
+BuildArch:      noarch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
+%if %{with python3}
+BuildRequires:  python3-devel
+%else
 BuildRequires:  python2-devel
+%endif
+
 # Packager tools
 Requires:       rpm-build
 Requires:       rpmdevtools
@@ -21,16 +35,11 @@ Requires:       libabigail
 Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
-%if 0%{?fedora}
-Requires:       python2-pycurl
+%if %{with python3}
+Requires:       python3-pycurl
 %else
 Requires:       python-pycurl
 %endif
-
-# See FIXME in rpmfusion-cvs
-#Requires:       pyOpenSSL
-
-BuildArch:      noarch
 
 %description
 rpmfusion-packager provides a set of utilities designed to help a RPM Fusion
@@ -38,20 +47,29 @@ packager in setting up their environment and access the RPM Fusion
 infrastructure.
 
 
+%if %{with python3}
+%package     -n python3-rpmfusion-cert
+Summary:        Fedora certificate tool and python library
+Requires:       python3-pyOpenSSL
+Requires:       python3-requests
+Requires:       python3-fedora
+Requires:       python3-six
+
+%description -n python3-rpmfusion-cert
+Provides rpmfusion-cert and the rpmfusion_cert python3 library
+%else
 %package     -n rpmfusion-cert
 Summary:        Fedora certificate tool and python library
-Group:          Applications/Databases
-%if 0%{?fedora}
-Requires:       python2-pyOpenSSL
-%else
 Requires:       pyOpenSSL
-%endif
 Requires:       python2-requests
 Requires:       python2-fedora
 Requires:       python2-six
 
 %description -n rpmfusion-cert
 Provides rpmfusion-cert and the rpmfusion_cert python library
+%endif
+
+
 
 %prep
 %setup -q
@@ -59,11 +77,15 @@ autoreconf -i
 
 
 %build
-%configure
+%if %{with python3}
+%configure --with-python3
+%else
+%configure --with-python2
+%endif
 %make_build
 
 %install
-%make_install INSTALL="install -p"
+%make_install
 
 
 %files
@@ -74,12 +96,22 @@ autoreconf -i
 %{_bindir}/rpmfusion-packager-setup
 %{_bindir}/koji-rpmfusion
 
+%if %{with python3}
+%files -n python3-rpmfusion-cert
+%license COPYING
+%{_bindir}/rpmfusion-cert
+%{python3_sitelib}/rpmfusion_cert
+%else
 %files -n rpmfusion-cert
 %license COPYING
 %{_bindir}/rpmfusion-cert
 %{python2_sitelib}/rpmfusion_cert
+%endif
 
 %changelog
+* Sun Dec 09 2018 FeRD (Frank Dana) <ferdnyc AT gmail com> - 0.6.3-1
+- Port to python3
+
 * Sun Sep 02 2018 Leigh Scott <leigh123linux@googlemail.com> - 0.6.2-3
 - Fix python deps for el7
 
