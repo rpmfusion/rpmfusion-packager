@@ -7,7 +7,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.6.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -54,6 +54,8 @@ Requires:       python3-pyOpenSSL
 Requires:       python3-requests
 Requires:       python3-fedora
 Requires:       python3-six
+Provides:       rpmfusion-cert  = %{version}-%{release}
+Obsoletes:      rpmfusion-cert  < %{version}-%{release}
 
 %description -n python3-rpmfusion-cert
 Provides rpmfusion-cert and the rpmfusion_cert python3 library
@@ -109,6 +111,9 @@ autoreconf -i
 %endif
 
 %changelog
+* Thu Mar 28 2019 Sérgio Basto <sergio@serjux.com> - 0.6.3-3
+- python3-rpmfusion-cert obsoletes rpmfusion-cert to fix upgrade path
+
 * Mon Mar 25 2019 Sérgio Basto <sergio@serjux.com> - 0.6.3-2
 - Revert the sources format to tar.gz, to avoid possible confusion in the future.
 
