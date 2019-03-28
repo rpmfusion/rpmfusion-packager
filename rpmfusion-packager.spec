@@ -7,12 +7,13 @@
 
 Name:           rpmfusion-packager
 Version:        0.6.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
 URL:            https://github.com/rpmfusion-infra/rpmfusion-packager
 Source0:        %url/archive/v%{version}/rpmfusion-packager-%{version}.tar.gz
+Patch1:         f2d2726d6e884d81c86adaafe2effbc53ee6220e.patch
 
 BuildArch:      noarch
 
@@ -75,6 +76,7 @@ Provides rpmfusion-cert and the rpmfusion_cert python library
 
 %prep
 %setup -q
+%patch1 -p1
 autoreconf -i
 
 
@@ -111,6 +113,9 @@ autoreconf -i
 %endif
 
 %changelog
+* Thu Mar 28 2019 Sérgio Basto <sergio@serjux.com> - 0.6.3-4
+- In Python 3 iwe need add the b flag
+
 * Thu Mar 28 2019 Sérgio Basto <sergio@serjux.com> - 0.6.3-3
 - python3-rpmfusion-cert obsoletes rpmfusion-cert to fix upgrade path
 
