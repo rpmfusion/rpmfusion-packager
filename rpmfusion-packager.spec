@@ -7,7 +7,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.6.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -111,6 +111,9 @@ autoreconf -i
 %endif
 
 %changelog
+* Sat Aug 24 2019 Leigh Scott <leigh123linux@gmail.com> - 0.6.4-2
+- Rebuild for python-3.8
+
 * Thu May 09 2019 Sérgio Basto <sergio@serjux.com> - 0.6.4-1
 - Fix input mess
 
