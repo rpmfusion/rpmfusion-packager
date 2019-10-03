@@ -1,3 +1,8 @@
+%define compdir %(pkg-config --variable=completionsdir bash-completion)
+%if "%{compdir}" == ""
+%define compdir "/etc/bash_completion.d"
+%endif
+
 # rpmfusion-packager switched to python3 on Fedora 30 and RHEL > 7:
 %if 0%{?fedora} > 29 || 0%{?rhel} > 7
 %bcond_without python3
@@ -18,6 +23,7 @@ BuildArch:      noarch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
+BuildRequires:  pkgconfig(bash-completion)
 %if %{with python3}
 BuildRequires:  python3-devel
 %else
@@ -97,6 +103,7 @@ autoreconf -i
 %{_bindir}/rfabipkgdiff
 %{_bindir}/rpmfusion-packager-setup
 %{_bindir}/koji-rpmfusion
+%{compdir}/
 
 %if %{with python3}
 %files -n python3-rpmfusion-cert
@@ -115,6 +122,7 @@ autoreconf -i
 - Add bash completions for koji-rpmfusion command
 - Update .gitignore
 - Turn off crl certificate check, never worked anyway
+- Add bash-completion file to the package
 
 * Sat Aug 24 2019 Leigh Scott <leigh123linux@gmail.com> - 0.6.4-2
 - Rebuild for python-3.8
