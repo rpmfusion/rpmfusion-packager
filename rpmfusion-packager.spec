@@ -6,8 +6,8 @@
 %endif
 
 Name:           rpmfusion-packager
-Version:        0.6.4
-Release:        2%{?dist}
+Version:        0.6.5
+Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -111,6 +111,11 @@ autoreconf -i
 %endif
 
 %changelog
+* Thu Oct 03 2019 Sérgio Basto <sergio@serjux.com> - 0.6.5-1
+- Add bash completions for koji-rpmfusion command
+- Update .gitignore
+- Turn off crl certificate check, never worked anyway
+
 * Sat Aug 24 2019 Leigh Scott <leigh123linux@gmail.com> - 0.6.4-2
 - Rebuild for python-3.8
 
