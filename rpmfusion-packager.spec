@@ -11,7 +11,7 @@
 %endif
 
 Name:           rpmfusion-packager
-Version:        0.6.5
+Version:        0.6.6
 Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
@@ -118,6 +118,9 @@ autoreconf -i
 %endif
 
 %changelog
+* Wed Nov 27 2019 Sérgio Basto <sergio@serjux.com> - 0.6.6-1
+- Fix Python2 with sync with an old version of Fedora-packager
+
 * Thu Oct 03 2019 Sérgio Basto <sergio@serjux.com> - 0.6.5-1
 - Add bash completions for koji-rpmfusion command
 - Update .gitignore
