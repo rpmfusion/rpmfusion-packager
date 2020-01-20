@@ -11,7 +11,7 @@
 %endif
 
 Name:           rpmfusion-packager
-Version:        0.6.6
+Version:        0.6.7
 Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
@@ -118,6 +118,11 @@ autoreconf -i
 %endif
 
 %changelog
+* Thu Nov 28 2019 Sérgio Basto <sergio@serjux.com> - 0.6.7-1
+  Finally, all synced from the latest version of fedora-packager-setup.
+  rpmfusion-packager-setup now will generate the user certificate and overwrite
+  server certificate and CA certificate preventing other errors.
+
 * Wed Nov 27 2019 Sérgio Basto <sergio@serjux.com> - 0.6.6-1
 - Fix Python2 with sync with an old version of Fedora-packager
 
