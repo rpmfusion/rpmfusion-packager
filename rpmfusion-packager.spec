@@ -11,14 +11,13 @@
 %endif
 
 Name:           rpmfusion-packager
-Version:        0.6.7
-Release:        2%{?dist}
+Version:        0.6.8
+Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
 URL:            https://github.com/rpmfusion-infra/rpmfusion-packager
 Source0:        %url/archive/v%{version}/rpmfusion-packager-%{version}.tar.gz
-Patch0:         Fix_cert_name.patch
 
 BuildArch:      noarch
 
@@ -81,7 +80,7 @@ Provides rpmfusion-cert and the rpmfusion_cert python library
 
 
 %prep
-%autosetup -p1
+%setup -q
 autoreconf -i
 
 
@@ -119,11 +118,15 @@ autoreconf -i
 %endif
 
 %changelog
+* Mon Mar 16 2020 Sérgio Basto <sergio@serjux.com> - 0.6.8-1
+- If cert expires soon, ask for a new user certificate
+
 * Sun Feb 02 2020 Leigh Scott <leigh123linux@gmail.com> - 0.6.7-2
 - Fix cert name
 
 * Thu Nov 28 2019 Sérgio Basto <sergio@serjux.com> - 0.6.7-1
-  Finally, all synced from the latest version of fedora-packager-setup.
+- Finally, all synced from the latest version of fedora-packager-setup which
+  used koji certificate for maintainers' authentication
   rpmfusion-packager-setup now will generate the user certificate and overwrite
   server certificate and CA certificate preventing other errors.
 
