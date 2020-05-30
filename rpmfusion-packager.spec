@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.6.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -87,6 +87,7 @@ autoreconf -i
 %build
 %if %{with python3}
 %configure --with-python3
+pathfix.py -pni %{python3} src/*.py
 %else
 %configure --with-python2
 %endif
@@ -118,6 +119,9 @@ autoreconf -i
 %endif
 
 %changelog
+* Sat May 30 2020 Leigh Scott <leigh123linux@gmail.com> - 0.6.8-2
+- Rebuild for python-3.9
+
 * Mon Mar 16 2020 Sérgio Basto <sergio@serjux.com> - 0.6.8-1
 - If cert expires soon, ask for a new user certificate
 
