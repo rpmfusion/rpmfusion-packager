@@ -1,0 +1,33 @@
+From e363d90f5a7411182fca1bec5f123875117337e1 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?S=C3=A9rgio=20M=2E=20Basto?= <sergio@serjux.com>
+Date: Sun, 5 Jul 2020 18:00:07 +0100
+Subject: [PATCH] Fix the bin/rfabipkgdiff to work with the new
+ libabigail-fedora
+
+---
+ bin/rfabipkgdiff | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/bin/rfabipkgdiff b/bin/rfabipkgdiff
+index 3a3a50a..9a97a93 100755
+--- a/bin/rfabipkgdiff
++++ b/bin/rfabipkgdiff
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/usr/bin/sh
+ 
+ # rfabipkgdiff - Interact with libabigail for RPM Fusion
+ #
+@@ -12,7 +12,7 @@
+ 
+ 
+ /usr/bin/fedabipkgdiff \
+-  --server http://koji.rpmfusion.org/koji \
+-  --topdir http://koji.rpmfusion.org/kojifiles \
++  --server http://koji.rpmfusion.org/kojihub \
++  --topurl http://koji.rpmfusion.org/kojifiles \
+   "$@"
+ 
+-- 
+2.25.4
+

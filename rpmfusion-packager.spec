@@ -12,12 +12,13 @@
 
 Name:           rpmfusion-packager
 Version:        0.6.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
 URL:            https://github.com/rpmfusion-infra/rpmfusion-packager
 Source0:        %url/archive/v%{version}/rpmfusion-packager-%{version}.tar.gz
+Patch1:         0001-Fix-the-bin-rfabipkgdiff-to-work-with-the-new-libabi.patch
 
 BuildArch:      noarch
 
@@ -80,7 +81,7 @@ Provides rpmfusion-cert and the rpmfusion_cert python library
 
 
 %prep
-%setup -q
+%autosetup -p1
 autoreconf -i
 
 
@@ -119,6 +120,9 @@ pathfix.py -pni %{python3} src/*.py
 %endif
 
 %changelog
+* Mon Jul 06 2020 Sérgio Basto <sergio@serjux.com> - 0.6.8-3
+- Add 0001-Fix-the-bin-rfabipkgdiff-to-work-with-the-new-libabi.patch
+
 * Sat May 30 2020 Leigh Scott <leigh123linux@gmail.com> - 0.6.8-2
 - Rebuild for python-3.9
 
