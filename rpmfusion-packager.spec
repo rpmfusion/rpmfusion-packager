@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.6.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -38,7 +38,13 @@ Requires:       rpmlint
 Requires:       mock
 Requires:       rfpkg
 Requires:       koji
+%if 0%{?fedora}
+Requires:       libabigail-fedora
+%else
+# EPEL8, ATM, don't have /usr/bin/fedabipkgdiff
+# PR proposed: https://src.fedoraproject.org/rpms/libabigail/pull-request/5
 Requires:       libabigail
+%endif
 Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
@@ -120,6 +126,10 @@ pathfix.py -pni %{python3} src/*.py
 %endif
 
 %changelog
+* Fri Jul 10 2020 Sérgio Basto <sergio@serjux.com> - 0.6.8-4
+- fedabipkgdiff is now in libabigail-fedora package, fedabipkgdiff is needed by
+  rfabipkgdiff
+
 * Mon Jul 06 2020 Sérgio Basto <sergio@serjux.com> - 0.6.8-3
 - Add 0001-Fix-the-bin-rfabipkgdiff-to-work-with-the-new-libabi.patch
 
