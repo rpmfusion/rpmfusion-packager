@@ -11,7 +11,7 @@
 %endif
 
 Name:           rpmfusion-packager
-Version:        0.7.1
+Version:        0.7.2
 Release:        1%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
@@ -125,6 +125,9 @@ pathfix.py -pni %{python3} src/*.py
 %endif
 
 %changelog
+* Tue Nov 24 2020 Sérgio Basto <sergio@serjux.com> 0.7.2-1
+- Using https for koji cli configuration
+
 * Sun Nov 22 2020 Sérgio Basto <sergio@serjux.com> - 0.7.1-1
 - Drop serverca parameters, it means the koji client will use the system
   certificates, not a given hardcoded one
