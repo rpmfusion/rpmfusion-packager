@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -125,6 +125,9 @@ pathfix.py -pni %{python3} src/*.py
 %endif
 
 %changelog
+* Tue Jun 15 2021 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-2
+- Rebuild for python-3.10
+
 * Tue Nov 24 2020 Sérgio Basto <sergio@serjux.com> 0.7.2-1
 - Using https for koji cli configuration
 
