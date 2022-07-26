@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -31,20 +31,18 @@ BuildRequires:  python2-devel
 %endif
 
 # Packager tools
-Requires:       rpm-build
-Requires:       rpmdevtools
-Requires:       rpmlint
-Requires:       mock
+%if 0%{?rhel} && 0%{?rhel} <= 7
 Requires:       rfpkg
+%else
+Suggests:       rfpkg
+%endif
 Requires:       koji
 %if 0%{?fedora}
 Requires:       libabigail-fedora
 %else
 # EPEL8, ATM, don't have /usr/bin/fedabipkgdiff
 # PR proposed: https://src.fedoraproject.org/rpms/libabigail/pull-request/5
-Requires:       libabigail
 %endif
-Requires:       mock-rpmfusion-free
 
 # Tools required by the scripts included
 %if %{with python3}
@@ -64,6 +62,7 @@ infrastructure.
 Summary:        Fedora certificate tool and python library
 Requires:       python3-pyOpenSSL
 Requires:       python3-requests
+# need for fedora.client.fas2.AccountSystem
 Requires:       python3-fedora
 Requires:       python3-six
 Provides:       rpmfusion-cert  = %{version}-%{release}
@@ -125,6 +124,9 @@ pathfix.py -pni %{python3} src/*.py
 %endif
 
 %changelog
+* Tue Jul 26 2022 Sérgio Basto <sergio@serjux.com> - 0.7.2-4
+- Only requires rfpkg, rfpkg will requires the rest
+
 * Sat Jun 25 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.7.2-3
 - Rebuilt for Python 3.11
 
