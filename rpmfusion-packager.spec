@@ -42,6 +42,7 @@ Requires:       libabigail-fedora
 %else
 # EPEL8, ATM, don't have /usr/bin/fedabipkgdiff
 # PR proposed: https://src.fedoraproject.org/rpms/libabigail/pull-request/5
+#Requires:       libabigail
 %endif
 
 # Tools required by the scripts included
