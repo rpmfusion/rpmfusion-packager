@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -93,7 +93,7 @@ autoreconf -i
 %build
 %if %{with python3}
 %configure --with-python3
-sed -i -e 's@#!/usr/bin/python@#!/usr/bin/python3@g' \
+sed -i -e 's@#!/usr/bin/python@#!%{python3}@g' \
  src/rpmfusion-cert.py \
  src/rpmfusion-packager-setup.py
 %else
@@ -127,6 +127,9 @@ sed -i -e 's@#!/usr/bin/python@#!/usr/bin/python3@g' \
 %endif
 
 %changelog
+* Sat Jul 08 2023 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-6
+- Fix shebang
+
 * Sat Jul 08 2023 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-5
 - Rebuilt for Python 3.12
 
