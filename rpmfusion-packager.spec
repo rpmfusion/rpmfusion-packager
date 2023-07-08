@@ -93,7 +93,9 @@ autoreconf -i
 %build
 %if %{with python3}
 %configure --with-python3
-pathfix.py -pni %{python3} src/*.py
+sed -i -e 's@#!/usr/bin/python@#!/usr/bin/python3@g' \
+ src/rpmfusion-cert.py \
+ src/rpmfusion-packager-setup.py
 %else
 %configure --with-python2
 %endif
