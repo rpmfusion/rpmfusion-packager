@@ -93,6 +93,9 @@ autoreconf -i
 %build
 %if %{with python3}
 %configure --with-python3
+%py3_shebang_fix \
+  src/rpmfusion-cert.py \
+  src/rpmfusion-packager-setup.py
 %else
 %configure --with-python2
 %endif
