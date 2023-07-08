@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -125,6 +125,9 @@ pathfix.py -pni %{python3} src/*.py
 %endif
 
 %changelog
+* Sat Jul 08 2023 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-5
+- Rebuilt for Python 3.12
+
 * Tue Jul 26 2022 Sérgio Basto <sergio@serjux.com> - 0.7.2-4
 - Only requires rfpkg, rfpkg will requires the rest
 
