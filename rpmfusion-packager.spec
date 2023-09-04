@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -48,8 +48,10 @@ Requires:       libabigail-fedora
 # Tools required by the scripts included
 %if %{with python3}
 Requires:       python3-pycurl
+Requires:       python3-rpmfusion-cert
 %else
 Requires:       python-pycurl
+Requires:       rpmfusion-cert
 %endif
 
 %description
@@ -127,6 +129,9 @@ autoreconf -i
 %endif
 
 %changelog
+* Mon Sep 04 2023 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-8
+- rpmfusion-packager-setup command requires rpmfusion-cert (rfbz#6760)
+
 * Sat Jul 08 2023 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-7
 - Same again
 
