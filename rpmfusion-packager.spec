@@ -12,7 +12,7 @@
 
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -125,6 +125,9 @@ autoreconf -i
 %endif
 
 %changelog
+* Tue Dec 24 2024 Nicolas Chauvet <kwizart@gmail.com> - 0.7.2-10
+- Mandates rfpkg
+
 * Thu Jun 13 2024 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-9
 - Rebuilt for Python 3.13
 
