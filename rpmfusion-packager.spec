@@ -31,11 +31,7 @@ BuildRequires:  python2-devel
 %endif
 
 # Packager tools
-%if 0%{?rhel} && 0%{?rhel} <= 7
 Requires:       rfpkg
-%else
-Suggests:       rfpkg
-%endif
 Requires:       koji
 %if 0%{?fedora}
 Requires:       libabigail-fedora
