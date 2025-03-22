@@ -1,18 +1,6 @@
-%define compdir %(pkg-config --variable=completionsdir bash-completion)
-%if "%{compdir}" == ""
-%define compdir "/etc/bash_completion.d"
-%endif
-
-# rpmfusion-packager switched to python3 on Fedora 30 and RHEL > 7:
-%if 0%{?fedora} > 29 || 0%{?rhel} > 7
-%bcond_without python3
-%else
-%bcond_with python3
-%endif
-
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -24,11 +12,7 @@ BuildArch:      noarch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  pkgconfig(bash-completion)
-%if %{with python3}
 BuildRequires:  python3-devel
-%else
-BuildRequires:  python2-devel
-%endif
 
 # Packager tools
 Requires:       rfpkg
@@ -42,13 +26,8 @@ Requires:       libabigail-fedora
 %endif
 
 # Tools required by the scripts included
-%if %{with python3}
 Requires:       python3-pycurl
 Requires:       python3-rpmfusion-cert
-%else
-Requires:       python-pycurl
-Requires:       rpmfusion-cert
-%endif
 
 %description
 rpmfusion-packager provides a set of utilities designed to help a RPM Fusion
@@ -56,31 +35,18 @@ packager in setting up their environment and access the RPM Fusion
 infrastructure.
 
 
-%if %{with python3}
 %package     -n python3-rpmfusion-cert
 Summary:        Fedora certificate tool and python library
 Requires:       python3-pyOpenSSL
 Requires:       python3-requests
 # need for fedora.client.fas2.AccountSystem
-Requires:       python3-fedora
+Requires:       python3-rpmfusion
 Requires:       python3-six
 Provides:       rpmfusion-cert  = %{version}-%{release}
 Obsoletes:      rpmfusion-cert  < %{version}-%{release}
 
 %description -n python3-rpmfusion-cert
 Provides rpmfusion-cert and the rpmfusion_cert python3 library
-%else
-%package     -n rpmfusion-cert
-Summary:        Fedora certificate tool and python library
-Requires:       pyOpenSSL
-Requires:       python2-requests
-Requires:       python2-fedora
-Requires:       python2-six
-
-%description -n rpmfusion-cert
-Provides rpmfusion-cert and the rpmfusion_cert python library
-%endif
-
 
 
 %prep
@@ -89,14 +55,10 @@ autoreconf -i
 
 
 %build
-%if %{with python3}
 %configure --with-python3
 %py3_shebang_fix \
   src/rpmfusion-cert.py \
   src/rpmfusion-packager-setup.py
-%else
-%configure --with-python2
-%endif
 %make_build
 
 %install
@@ -110,23 +72,24 @@ autoreconf -i
 %{_bindir}/rfabipkgdiff
 %{_bindir}/rpmfusion-packager-setup
 %{_bindir}/koji-rpmfusion
-%{compdir}/
+%{bash_completions_dir}/
 
-%if %{with python3}
 %files -n python3-rpmfusion-cert
 %license COPYING
 %{_bindir}/rpmfusion-cert
 %{python3_sitelib}/rpmfusion_cert
-%else
-%files -n rpmfusion-cert
-%license COPYING
-%{_bindir}/rpmfusion-cert
-%{python2_sitelib}/rpmfusion_cert
-%endif
 
 %changelog
+* Wed Mar 19 2025 Sérgio Basto <sergio@serjux.com> - 0.7.2-11
+- Replace python3-fedora which was removed on rawhide/F42, with python3-rpmfusion
+
+* Sat Feb 01 2025 Sérgio Basto <sergio@serjux.com>
+- Drop support to el7 and python2
+- Use macro bash_completions_dir
+
 * Tue Dec 24 2024 Nicolas Chauvet <kwizart@gmail.com> - 0.7.2-10
-- Mandates rfpkg
+- Mandates rfpkg, use requires instead suggests
+  (SB note) maybe recomends is a better choice
 
 * Thu Jun 13 2024 Leigh Scott <leigh123linux@gmail.com> - 0.7.2-9
 - Rebuilt for Python 3.13
