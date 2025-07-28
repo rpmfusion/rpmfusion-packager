@@ -1,6 +1,6 @@
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -80,6 +80,9 @@ autoreconf -i
 %{python3_sitelib}/rpmfusion_cert
 
 %changelog
+* Mon Jul 28 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.7.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
+
 * Wed Mar 19 2025 Sérgio Basto <sergio@serjux.com> - 0.7.2-11
 - Replace python3-fedora which was removed on rawhide/F42, with python3-rpmfusion
 
