@@ -1,6 +1,6 @@
 Name:           rpmfusion-packager
 Version:        0.7.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Tools for setting up a rpmfusion maintainer environment
 
 License:        GPLv2+
@@ -80,6 +80,9 @@ autoreconf -i
 %{python3_sitelib}/rpmfusion_cert
 
 %changelog
+* Mon Feb 02 2026 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.7.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_44_Mass_Rebuild
+
 * Mon Jul 28 2025 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.7.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_43_Mass_Rebuild
 
